@@ -1,54 +1,44 @@
-#include <boost/config.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
+#include <boost/graph/graph_utility.hpp>
+#include <boost/property_map/property_map.hpp>
+#include <boost/property_map/dynamic_property_map.hpp>
 #include <boost/graph/adjacency_list.hpp>
-#include <boost/tuple/tuple.hpp>
-enum family
-{
-    Jeanie,
-    Debbie,
-    Rick,
-    John,
-    Amanda,
-    Margaret,
-    Benjamin,
-    N
+#include <boost/graph/graphml.hpp>
+#include <fstream>
+
+void loadHierarchy();
+//struct to store the node properties of the football graph
+struct footballData{
+    long node_id;
+    long value;
+    std::string label;
 };
+//shortcut adjacency_list for the football graph
+using footballGraph =  boost::adjacency_list<boost::vecS,
+        boost::vecS, boost::undirectedS, footballData,
+        boost::no_property, boost::no_property, boost::listS>;
 int main()
 {
-    using namespace boost;
-    const char* name[] = { "Jeanie", "Debbie", "Rick", "John", "Amanda",
-                           "Margaret", "Benjamin" };
+return 0;
+}
 
-    adjacency_list<> g(N);
-    add_edge(Jeanie, Debbie, g);
-    add_edge(Jeanie, Rick, g);
-    add_edge(Jeanie, John, g);
-    add_edge(Debbie, Amanda, g);
-    add_edge(Rick, Margaret, g);
-    add_edge(John, Benjamin, g);
 
-    graph_traits< adjacency_list<> >::vertex_iterator i, end;
-    graph_traits< adjacency_list<> >::adjacency_iterator ai, a_end;
-    property_map< adjacency_list<>, vertex_index_t >::type index_map
-            = get(vertex_index, g);
+/*
+ * Function returns an adjacency list read from a graphml file
+ * Currently hard coded for changes
+ */
+void loadHierarchy(){
+    std::ifstream inFile;
+    inFile.open("football/football.graphml", std::ifstream::in);
+    footballGraph g;
+    boost::dynamic_properties dp;
+    dp.property("node_id", boost::get(&footballData::node_id, g));
+    dp.property("value", boost::get(&footballData::value, g));
+    dp.property("label", boost::get(&footballData::label, g));
+//    boost::read_graphml(inFile, g, dp);
+    write_graphml(std::cout, g, dp, true);
 
-    for (boost::tie(i, end) = vertices(g); i != end; ++i)
-    {
-        std::cout << name[get(index_map, *i)];
-        boost::tie(ai, a_end) = adjacent_vertices(*i, g);
-        if (ai == a_end)
-            std::cout << " has no children";
-        else
-            std::cout << " is the parent of ";
-        for (; ai != a_end; ++ai)
-        {
-            std::cout << name[get(index_map, *ai)];
-            if (boost::next(ai) != a_end)
-                std::cout << ", ";
-        }
-        std::cout << std::endl;
-    }
-    return EXIT_SUCCESS;
+
 }

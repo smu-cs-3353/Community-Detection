@@ -14,6 +14,12 @@
 # EXTERNAL cache entries
 ########################
 
+//Value Computed by CMake
+21f-pa03-how-bad-can-it-be_BINARY_DIR:STATIC=/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug
+
+//Value Computed by CMake
+21f-pa03-how-bad-can-it-be_SOURCE_DIR:STATIC=/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be
+
 //The directory containing a CMake configuration file for Boost.
 Boost_DIR:PATH=/usr/local/lib/cmake/Boost-1.76.0
 
@@ -164,7 +170,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=boost2
+CMAKE_PROJECT_NAME:STATIC=21f-pa03-how-bad-can-it-be
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/ranlib

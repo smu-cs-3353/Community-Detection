@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(boost2)
+project(21f-pa03-how-bad-can-it-be)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -14,6 +14,7 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIR})
     link_directories(${Boost_LIBRARY_DIR})
-    add_executable(boost2 main.cpp)
-    target_link_libraries(boost2  ${Boost_LIBRARIES} )
+    add_executable(21f-pa03-how-bad-can-it-be main.cpp)
+    target_link_libraries(21f-pa03-how-bad-can-it-be  ${Boost_LIBRARIES} )
+
 endif()
