@@ -25,6 +25,8 @@ Boost_DIR:PATH=/usr/local/lib/cmake/Boost-1.76.0
 
 Boost_FILESYSTEM_LIBRARY_RELEASE:STRING=/usr/local/lib/libboost_filesystem-mt.dylib
 
+Boost_GRAPH_LIBRARY_RELEASE:STRING=/usr/local/lib/libboost_graph-mt.dylib
+
 Boost_SYSTEM_LIBRARY_RELEASE:STRING=/usr/local/lib/libboost_system-mt.dylib
 
 //Path to a program.
@@ -246,8 +248,14 @@ boost2_SOURCE_DIR:STATIC=/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be
 //The directory containing a CMake configuration file for boost_filesystem.
 boost_filesystem_DIR:PATH=/usr/local/lib/cmake/boost_filesystem-1.76.0
 
+//The directory containing a CMake configuration file for boost_graph.
+boost_graph_DIR:PATH=/usr/local/lib/cmake/boost_graph-1.76.0
+
 //The directory containing a CMake configuration file for boost_headers.
 boost_headers_DIR:PATH=/usr/local/lib/cmake/boost_headers-1.76.0
+
+//The directory containing a CMake configuration file for boost_regex.
+boost_regex_DIR:PATH=/usr/local/lib/cmake/boost_regex-1.76.0
 
 //The directory containing a CMake configuration file for boost_system.
 boost_system_DIR:PATH=/usr/local/lib/cmake/boost_system-1.76.0
@@ -401,13 +409,17 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/local/lib/cmake/Boost-1.76.0/BoostConfig.cmake][cfound components: system filesystem ][v1.76.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/local/lib/cmake/Boost-1.76.0/BoostConfig.cmake][cfound components: system filesystem graph ][v1.76.0()]
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl
 ProcessorCount_cmd_sysctl-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_filesystem_DIR
 boost_filesystem_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: boost_graph_DIR
+boost_graph_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_headers_DIR
 boost_headers_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: boost_regex_DIR
+boost_regex_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: boost_system_DIR
 boost_system_DIR-ADVANCED:INTERNAL=1
 

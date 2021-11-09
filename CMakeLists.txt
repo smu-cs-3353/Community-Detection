@@ -9,7 +9,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 set(Boost_INCLUDE_DIR /usr/local/src/boost_1_46_1)
 set(Boost_LIBRARY_DIR /usr/local/src/boost_1_46_1/stage/lib)
 
-find_package(Boost COMPONENTS system filesystem REQUIRED)
+find_package(Boost COMPONENTS system filesystem graph REQUIRED)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIR})

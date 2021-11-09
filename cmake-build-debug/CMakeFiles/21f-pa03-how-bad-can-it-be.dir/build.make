@@ -100,6 +100,8 @@ CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.s: cmake_force
 21f-pa03-how-bad-can-it-be: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/build.make
 21f-pa03-how-bad-can-it-be: /usr/local/lib/libboost_system-mt.dylib
 21f-pa03-how-bad-can-it-be: /usr/local/lib/libboost_filesystem-mt.dylib
+21f-pa03-how-bad-can-it-be: /usr/local/lib/libboost_graph-mt.dylib
+21f-pa03-how-bad-can-it-be: /usr/local/lib/libboost_regex-mt.dylib
 21f-pa03-how-bad-can-it-be: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable 21f-pa03-how-bad-can-it-be"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/21f-pa03-how-bad-can-it-be.dir/link.txt --verbose=$(VERBOSE)

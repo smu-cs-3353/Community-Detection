@@ -1,4 +1,5 @@
 /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be
+-- Found Boost: /usr/local/lib/cmake/Boost-1.76.0/BoostConfig.cmake (found version "1.76.0") found components: system filesystem graph 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug

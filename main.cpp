@@ -21,7 +21,7 @@ using footballGraph =  boost::adjacency_list<boost::vecS,
         boost::no_property, boost::no_property, boost::listS>;
 int main()
 {
-return 0;
+loadHierarchy();
 }
 
 
@@ -31,14 +31,15 @@ return 0;
  */
 void loadHierarchy(){
     std::ifstream inFile;
-    inFile.open("football/football.graphml", std::ifstream::in);
+    inFile.open("/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/football/football.graphml", std::ifstream::in);
     footballGraph g;
     boost::dynamic_properties dp;
     dp.property("node_id", boost::get(&footballData::node_id, g));
     dp.property("value", boost::get(&footballData::value, g));
     dp.property("label", boost::get(&footballData::label, g));
-//    boost::read_graphml(inFile, g, dp);
+    boost::read_graphml(inFile, g, dp);
     write_graphml(std::cout, g, dp, true);
+    inFile.close();
 
 
 }
