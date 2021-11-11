@@ -25,6 +25,15 @@ struct edgeProperty{
     int distance = 1;
     int betweenessValue;
 };
+template < class ParentDecorator > struct print_parent
+{
+    print_parent(const ParentDecorator& p_) : p(p_) {}
+    template < class Vertex > void operator()(const Vertex& v) const
+    {
+        std::cout << "parent[" << v << "] = " << p[v] << std::endl;
+    }
+    ParentDecorator p;
+};
 //shortcut adjacency_list for the football graph
 using footballGraph =  boost::adjacency_list<boost::vecS,
         boost::vecS, boost::undirectedS, footballData,
@@ -56,10 +65,13 @@ void loadHierarchy(){
 
 
     boost::breadth_first_search(g, s,boost::visitor(boost::make_bfs_visitor
-    (boost::record_predecessors(p, boost::on_tree_edge()))));
+    (boost::record_predecessors(&p[0], boost::on_tree_edge()))));
 
+    typedef std::vector< Vertex >::value_type* Piter;
+    std::for_each(boost::vertices(g).first, boost::vertices(g).second,
+                  print_parent< Piter >(&p[0]));
 
-
+boost::print_graph(g);
     //write_graphml(std::cout, g, dp, true);
     inFile.close();
 }
