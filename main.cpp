@@ -10,21 +10,14 @@
 #include <boost/graph/breadth_first_search.hpp>
 #include <fstream>
 
-void loadHierarchy();
-struct graphData{
-    std::string name;
-};
+void loadHierarchy(std::string path);
 //struct to store the node properties of the football graph
 struct footballData{
     long node_id;
     long value;
     std::string label;
 };
-struct edgeProperty{
-    std::string name;
-    int distance = 1;
-    int betweenessValue;
-};
+
 template < class ParentDecorator > struct print_parent
 {
     print_parent(const ParentDecorator& p_) : p(p_) {}
@@ -36,12 +29,11 @@ template < class ParentDecorator > struct print_parent
 };
 //shortcut adjacency_list for the football graph
 using footballGraph =  boost::adjacency_list<boost::vecS,
-        boost::vecS, boost::undirectedS, footballData,
-        edgeProperty, graphData, boost::listS>;
+        boost::vecS, boost::undirectedS, footballData>;
 using Vertex = boost::graph_traits<footballGraph>::vertex_descriptor;
-int main()
+int main(int argc, char* argv[])
 {
-loadHierarchy();
+loadHierarchy(argv[1]);
 }
 
 
@@ -49,29 +41,36 @@ loadHierarchy();
  * Function constructs an adjacency list read from a graphml file
  * Currently hard coded for changes
  */
-void loadHierarchy(){
+void loadHierarchy(std::string path){
     std::ifstream inFile;
-    inFile.open("/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/football/football.graphml", std::ifstream::in);
+    inFile.open(path, std::ifstream::in);
     footballGraph g;
     boost::dynamic_properties dp(boost::ignore_other_properties);
     dp.property("node_id", boost::get(&footballData::node_id, g));
     dp.property("value", boost::get(&footballData::value, g));
     dp.property("label", boost::get(&footballData::label, g));
+    std::vector<std::vector<Vertex>> parentLists;
+    auto vertex_idMap = get(boost::vertex_index, g);
+    boost::graph_traits <footballGraph>::vertex_iterator i, end;
     boost::read_graphml(inFile, g, dp);
-    std::vector<Vertex> p(boost::num_vertices(g));
-    Vertex s = *(boost::vertices(g).first);
-    //std::vector<boost::graph_traits<footballGraph>::vertices_size_type> d;
-    p[s] = s;
+    for(boost::tie(i, end) = boost::vertices(g); i != end; ++i) {
+        std::vector<Vertex> p(boost::num_vertices(g));
+        Vertex s = vertex_idMap[*i];
+        //std::vector<boost::graph_traits<footballGraph>::vertices_size_type> d;
+        p[s] = s;
 
 
-    boost::breadth_first_search(g, s,boost::visitor(boost::make_bfs_visitor
-    (boost::record_predecessors(&p[0], boost::on_tree_edge()))));
+        boost::breadth_first_search(g, s, boost::visitor(boost::make_bfs_visitor
+                                                                 (boost::record_predecessors(&p[0],
+                                                                                             boost::on_tree_edge()))));
 
-    typedef std::vector< Vertex >::value_type* Piter;
-    std::for_each(boost::vertices(g).first, boost::vertices(g).second,
-                  print_parent< Piter >(&p[0]));
-
-boost::print_graph(g);
+        typedef std::vector<Vertex>::value_type *Piter;
+        std::cout << "=========================================" <<  std::endl << "Printing Predecessor Map For Node " << s << std::endl;
+        std::for_each(boost::vertices(g).first, boost::vertices(g).second,
+                      print_parent<Piter>(&p[0]));
+        parentLists.push_back(p);
+    }
+    boost::print_graph(g);
     //write_graphml(std::cout, g, dp, true);
     inFile.close();
 }
