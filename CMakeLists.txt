@@ -14,7 +14,7 @@ find_package(Boost COMPONENTS system filesystem graph REQUIRED)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIR})
     link_directories(${Boost_LIBRARY_DIR})
-    add_executable(21f-pa03-how-bad-can-it-be main.cpp)
+    add_executable(21f-pa03-how-bad-can-it-be src/main.cpp)
     target_link_libraries(21f-pa03-how-bad-can-it-be  ${Boost_LIBRARIES} )
 
 endif()

@@ -92,7 +92,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/main.cpp">
+		<Unit filename="/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/src/main.cpp">
 			<Option target="21f-pa03-how-bad-can-it-be"/>
 		</Unit>
 		<Unit filename="/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/CMakeLists.txt">

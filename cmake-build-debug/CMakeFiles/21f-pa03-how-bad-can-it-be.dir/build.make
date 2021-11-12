@@ -66,27 +66,27 @@ include CMakeFiles/21f-pa03-how-bad-can-it-be.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/21f-pa03-how-bad-can-it-be.dir/flags.make
 
-CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/flags.make
-CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o -c /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/main.cpp
+CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/flags.make
+CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o -c /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/src/main.cpp
 
-CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/main.cpp > CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.i
+CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/src/main.cpp > CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.i
 
-CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/main.cpp -o CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.s
+CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/src/main.cpp -o CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.s
 
 # Object files for target 21f-pa03-how-bad-can-it-be
 21f__pa03__how__bad__can__it__be_OBJECTS = \
-"CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o"
+"CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o"
 
 # External object files for target 21f-pa03-how-bad-can-it-be
 21f__pa03__how__bad__can__it__be_EXTERNAL_OBJECTS =
 
-21f-pa03-how-bad-can-it-be: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o
+21f-pa03-how-bad-can-it-be: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o
 21f-pa03-how-bad-can-it-be: CMakeFiles/21f-pa03-how-bad-can-it-be.dir/build.make
 21f-pa03-how-bad-can-it-be: /usr/local/lib/libboost_system-mt.dylib
 21f-pa03-how-bad-can-it-be: /usr/local/lib/libboost_filesystem-mt.dylib

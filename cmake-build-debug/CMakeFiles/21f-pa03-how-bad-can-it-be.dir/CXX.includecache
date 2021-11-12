@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/main.cpp
+/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/src/main.cpp
 iostream
 -
 vector
