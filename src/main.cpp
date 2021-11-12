@@ -99,7 +99,7 @@ footballGraph readMap(std::string path){
     dp.property("label", boost::get(&footballData::label, g));
     boost::read_graphml(inFile, g, dp);
     std::fstream outFile;
-    std::string path2 = "../football/football_example.dot";
+    std::string path2 = "../football/football_starting_example.dot";
     outFile.open(path2.c_str(), std::fstream::out);
     if(outFile.is_open()) {
         std::cout << "file opened " << std::endl;
