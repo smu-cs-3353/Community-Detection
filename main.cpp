@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
     std::vector<std::vector<Vertex>> shortestPathToFrom;
     //runs DFS from each node to generate parent maps
     shortestPathToFrom = processParentMaps(graph);
+    printParentMaps(graph, shortestPathToFrom);
 
 }
 /**
@@ -50,7 +51,7 @@ int main(int argc, char* argv[])
  */
 footballGraph readMap(std::string path){
     std::ifstream inFile;
-    inFile.open(path, std::ifstream::in);
+    inFile.open(path.c_str(), std::ifstream::in);
     footballGraph g;
     boost::dynamic_properties dp(boost::ignore_other_properties);
     dp.property("node_id", boost::get(&footballData::node_id, g));
@@ -97,4 +98,7 @@ void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>> short
         std::for_each(boost::vertices(graph).first, boost::vertices(graph).second,
                       print_parent<Piter>(&shortestPathToFrom[i][0]));
     }
+}
+void calcFauxBetween(){
+
 }
