@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/main.cpp" "/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/CMakeFiles/21f-pa03-how-bad-can-it-be.dir/main.cpp.o"
+  "/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/src/main.cpp" "/Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/CMakeFiles/21f-pa03-how-bad-can-it-be.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
