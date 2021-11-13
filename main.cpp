@@ -99,3 +99,6 @@ void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>> short
                       print_parent<Piter>(&shortestPathToFrom[i][0]));
     }
 }
+void calcFauxBetween(){
+
+}
