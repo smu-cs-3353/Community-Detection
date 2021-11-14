@@ -16,17 +16,25 @@ struct footballData{
     long value;
     std::string label;
 };
+struct do_nothing
+{
+    template <typename VertexOrEdge1, typename VertexOrEdge2>
+    void operator()(const VertexOrEdge1& , VertexOrEdge2& ) const
+    {
+    }
+};
+
 //shortcut adjacency_list for the football graph
 using footballGraph =  boost::adjacency_list<boost::vecS,
         boost::vecS, boost::undirectedS, footballData>;
 //shortcut for vertex_descriptor types
 using Vertex = boost::graph_traits<footballGraph>::vertex_descriptor;
 using Edge = boost::graph_traits<footballGraph>::edge_descriptor;
-
-footballGraph readMap(std::string path);
+footballGraph readMap(std::string path, boost::dynamic_properties dp);
 std::vector<std::vector<Vertex>> processParentMaps(footballGraph);
 void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo);
-std::vector<Edge> calculateBetween(footballGraph, std::vector<std::vector<Vertex>>& shortestPathFromTo);
+void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths);
+footballGraph calculateBetween(footballGraph, std::vector<std::vector<Vertex>>& shortestPathFromTo);
 //struct from boost examples used to print out the parent
 //implemented here: https://www.boost.org/doc/libs/1_77_0/libs/graph/example/bfs.cpp
 template < class ParentDecorator > struct print_parent
@@ -42,21 +50,23 @@ template < class ParentDecorator > struct print_parent
 //Pass in path to graphml file in the program arguments
 int main(int argc, char* argv[])
 {   //creates a graph object of the graphml file provided
-    footballGraph graph = readMap(argv[1]);
+    boost::dynamic_properties dp(boost::ignore_other_properties);
+    footballGraph graph = readMap(argv[1], dp);
     //initializes a vector to store parent maps
     std::vector<std::vector<Vertex>> shortestPathFromTo;
     //runs DFS from each node to generate parent maps
     shortestPathFromTo = processParentMaps(graph);
+    boost::print_graph(graph);
+    newManAlgo(graph, shortestPathFromTo);
 
 }
 /**
  *   Function takes in a path to a graphml and returns a graph object
  */
-footballGraph readMap(std::string path){
+footballGraph readMap(std::string path, boost::dynamic_properties dp){
     std::ifstream inFile;
     inFile.open(path.c_str(), std::ifstream::in);
     footballGraph g;
-    boost::dynamic_properties dp(boost::ignore_other_properties);
     dp.property("node_id", boost::get(&footballData::node_id, g));
     dp.property("value", boost::get(&footballData::value, g));
     dp.property("label", boost::get(&footballData::label, g));
@@ -117,10 +127,10 @@ void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>>& shor
 }
 using EdgeIterator = boost::graph_traits<footballGraph>::edge_iterator;
 
-std::vector<Edge> calculateBetween(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo){
+footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo){
     footballGraph::edge_iterator edge, edge_end;
     std::pair<EdgeIterator, EdgeIterator> ei = boost::edges(graph);
-    std::vector<Edge> maxEdges;
+    Edge max;
     //for each edge
     int betweenValMax = -1;
     for (EdgeIterator edge_iter = ei.first; edge_iter != ei.second; ++edge_iter) {
@@ -159,30 +169,26 @@ std::vector<Edge> calculateBetween(footballGraph graph, std::vector<std::vector<
 //if new max is reached, clear max list, start new list
         if(betweenVal > betweenValMax){
             betweenVal = betweenValMax;
-            maxEdges.clear();
-            maxEdges.push_back(*edge_iter);
+            max = *edge_iter;
+
 
         }
     }
 
-//    std::cout << "max between edges are" << std::endl;
-//    for(int i =0; i < maxEdges.size(); i++){
-//        std::cout << "source: " << maxEdges[i].m_source << std::endl;
-//        std::cout << "target: " << maxEdges[i].m_target << std::endl;
-//
-//
-//    }
+    std::cout << "max between edge is " << std::endl;
+        std::cout << "source: " << max.m_source << std::endl;
+        std::cout << "target: " << max.m_target << std::endl;
+    remove_edge(max, graph);
+    footballGraph g_Copy = graph;
+    boost::print_graph(g_Copy);
+    return g_Copy;
 
-    return maxEdges;
 }
 void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths){
-    while(num_edges(graph) == 0) {
-        std::vector<Edge> maxEdges = calculateBetween(graph, paths);
-        for (int i = 0; i < maxEdges.size(); i++) {
-            graph.remove_edge(maxEdges[i]);
-        }
+    int check = num_edges(graph) - 1;
+    while(num_edges(graph) > 0)
+        graph = calculateBetween(graph, paths);
 
-    }
 }
 
 
