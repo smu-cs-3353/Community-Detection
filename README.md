@@ -20,7 +20,7 @@ Here is an example of the output of our program when called with the following c
 ```
 /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/21f-pa03-how-bad-can-it-be ../graphs/football.graphml ../output/footbball_output
 ```
-> The graphml file the program is called using is included in the graphs file of the repo
+> The graphml file the program calls is included in the graphs file of the repo
 
 ### This is the map as is.
 ![footbball_output_begin](https://user-images.githubusercontent.com/71847764/141668973-d454e5fd-9c65-4278-a691-f75b00ee1a62.png)
@@ -31,6 +31,6 @@ Here is an example of the output of our program when called with the following c
 ### Here is the map after >60% of edges are removed
 ![footbball_output3](https://user-images.githubusercontent.com/71847764/141668980-3152dca7-3faf-44cf-847f-87a34c2e23bd.png)
 
-Currently our program works best for a graphml file with a property type of label attatched. 
+Currently our program only supports .dot output for a graphml file with a property type of label attatched. 
 
 
