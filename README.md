@@ -23,7 +23,7 @@ Here is an example of the output of our program when called with the following c
 > The graphml file the program calls is included in the graphs file of the repo
 
 ### This is the map as is.
-![footbball_output_begin](https://user-images.githubusercontent.com/71847764/141668973-d454e5fd-9c65-4278-a691-f75b00ee1a62.png)
+![footbball_output_begin](https://user-images.githubusercontent.com/71847764/141670104-a6d0debd-1efa-41db-8085-937b6974ecfa.png)
 ### Here is the map after >20% of edges are removed
 ![footbball_output1](https://user-images.githubusercontent.com/71847764/141668978-1801fa29-459d-402a-96f2-a561964d9391.png)
 ### Here is the map after >40% of edges are removed
