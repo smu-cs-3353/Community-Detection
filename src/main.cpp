@@ -44,7 +44,6 @@ int main(int argc, char* argv[])
     std::vector<std::vector<Vertex>> shortestPathFromTo;
     //runs DFS from each node to generate parent maps
     shortestPathFromTo = processParentMaps(graph);
-    boost::print_graph(graph);
     newManAlgo(graph, shortestPathFromTo, argv[2]);
 
 }
@@ -53,7 +52,6 @@ int main(int argc, char* argv[])
  */
 footballGraph readMap(std::string path, std::string path2){
     std::ifstream inFile;
-    path += ".graphml";
     inFile.open(path.c_str(), std::ifstream::in);
     footballGraph g;
     boost::dynamic_properties dp(boost::ignore_other_properties);
