@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug
