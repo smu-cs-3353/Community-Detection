@@ -1,7 +1,5 @@
 
-# Girvan–Newman Algorithm
-
-## implemented using Boost and C++ for files of type graphml
+# Girvan–Newman Algorithm implemented using Boost and C++ for files of type graphml
 
 
 The following C++ program was created in order to detect communities within a network. First, we find the shortest paths of the network. 
