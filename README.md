@@ -13,7 +13,7 @@ The program requires two command line arguments to be run.
 1. The path to graphml file you would like to run the algorithm on (extension required)
 2. The path/name you would like your files to be output with (no extension)
 ##Program Output:
-The program will output 4-5 .dot files that represent the graph at various points of the run time of the algorithm
+The program will output several .dot files that represent the graph at various points of the run time of the algorithm
 One of these files will have a begin indicator, this is your original .graphml file
 The rest of the files will be labeled in order
 Here is an example of the output of our program when called with the following command line from CLion(these files have been converted from .dot to .png using a script found in the repo):
