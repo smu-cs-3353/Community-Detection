@@ -21,10 +21,10 @@ The program will output 4-5 .dot files that represent the graph at various point
 One of these files will have a begin indicator, this is your original .graphml file
 The rest of the files will be labeled in order
 Here is an example of the output of our program when called with the following command line from CLion(these files have been converted from .dot to .png using a script found in the repo):
-> The graphml file the program is called using is included in the graphs file of the repo
 ```
 /Users/yeet/Documents/GitHub/21f-pa03-how-bad-can-it-be/cmake-build-debug/21f-pa03-how-bad-can-it-be ../graphs/football.graphml ../output/footbball_output
 ```
+> The graphml file the program is called using is included in the graphs file of the repo
 
 ######This is the map as is.
 ![footbball_output_begin](https://user-images.githubusercontent.com/71847764/141668973-d454e5fd-9c65-4278-a691-f75b00ee1a62.png)
