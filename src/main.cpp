@@ -34,7 +34,7 @@ footballGraph readMap(std::string path, boost::dynamic_properties dp);
 std::vector<std::vector<Vertex>> processParentMaps(footballGraph);
 void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo);
 void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths);
-footballGraph calculateBetween(footballGraph, std::vector<std::vector<Vertex>>& shortestPathFromTo);
+footballGraph calculateBetween(footballGraph, std::vector<std::vector<Vertex>>& shortestPathFromTo, footballGraph);
 //struct from boost examples used to print out the parent
 //implemented here: https://www.boost.org/doc/libs/1_77_0/libs/graph/example/bfs.cpp
 template < class ParentDecorator > struct print_parent
@@ -127,67 +127,75 @@ void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>>& shor
 }
 using EdgeIterator = boost::graph_traits<footballGraph>::edge_iterator;
 
-footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo){
-    footballGraph::edge_iterator edge, edge_end;
-    std::pair<EdgeIterator, EdgeIterator> ei = boost::edges(graph);
-    Edge max;
-    //for each edge
-    int betweenValMax = -1;
-    for (EdgeIterator edge_iter = ei.first; edge_iter != ei.second; ++edge_iter) {
-        int betweenVal = 0;
-        Edge toCheck = *edge_iter;
-        //for each shortest path
-        for(int i = 0; i < shortestPathFromTo.size(); i++){
-            for(int j =0; j < shortestPathFromTo[i].size(); j++){
-               bool check = true;
-                if(i == j){
+footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo, footballGraph bestGraph) {
+    if (num_edges(graph) == 0) {
+        bestGraph = graph;
+        return bestGraph;
+    } else {
+        footballGraph::edge_iterator edge, edge_end;
+        std::pair <EdgeIterator, EdgeIterator> ei = boost::edges(graph);
+        Edge max;
+        //for each edge
+        int betweenValMax = -1;
+        for (EdgeIterator edge_iter = ei.first; edge_iter != ei.second; ++edge_iter) {
+            int betweenVal = 0;
+            Edge toCheck = *edge_iter;
+            Vertex go = vertex(0, graph);
+            //for each shortest path
+            for (int i = 0; i < shortestPathFromTo.size(); i++) {
+                if (out_degree(vertex(i, graph), graph) == 0)
                     continue;
-                }else if(shortestPathFromTo[i][j] == i){
-                    betweenVal++;
-                    check = false;
-                }
-
-                Vertex temp = i;
-                Vertex temp2 = shortestPathFromTo[i][j];
-                //checks if edge appears on path, if yes, increment betweenVal counter
-                if(check)
-                while(shortestPathFromTo[temp][j] != graph[j].node_id && temp2 != temp){
-                    Vertex sor1 = toCheck.m_source;
-                    Vertex tar1 = toCheck.m_target;
-                    Vertex sor2 = temp;
-                    Vertex tar2 = temp2;
-
-                    if(sor1 == sor2 && tar1 == tar2){
+                for (int j = 0; j < shortestPathFromTo[i].size(); j++) {
+                    if (out_degree(vertex(j, graph), graph) == 0)
+                        continue;
+                    bool check = true;
+                    if (i == j) {
+                        continue;
+                    } else if (shortestPathFromTo[i][j] == i) {
                         betweenVal++;
-                        break;
+                        continue;
                     }
-                    temp = temp2;
-                    temp2 = shortestPathFromTo[temp2][j];
+
+                    Vertex temp = i;
+                    Vertex temp2 = shortestPathFromTo[i][j];
+                    //checks if edge appears on path, if yes, increment betweenVal counter
+                    while (shortestPathFromTo[temp][j] != vertex(j, graph) && temp2 != temp) {
+                        Vertex sor1 = toCheck.m_source;
+                        Vertex tar1 = toCheck.m_target;
+                        Vertex sor2 = temp;
+                        Vertex tar2 = temp2;
+
+                        if (sor1 == sor2 && tar1 == tar2) {
+                            betweenVal++;
+                            break;
+                        }
+                        temp = temp2;
+                        temp2 = shortestPathFromTo[temp2][j];
+                    }
                 }
             }
-    }
 //if new max is reached, clear max list, start new list
-        if(betweenVal > betweenValMax){
-            betweenVal = betweenValMax;
-            max = *edge_iter;
+            if (betweenVal > betweenValMax) {
+                betweenValMax = betweenVal;
+                max = *edge_iter;
 
-
+            }
         }
-    }
 
-    std::cout << "max between edge is " << std::endl;
+        std::cout << "max between edge is " << std::endl;
         std::cout << "source: " << max.m_source << std::endl;
         std::cout << "target: " << max.m_target << std::endl;
-    remove_edge(max, graph);
-    footballGraph g_Copy = graph;
-    boost::print_graph(g_Copy);
-    return g_Copy;
+        remove_edge(max, graph);
+        footballGraph g_Copy = graph;
+        boost::print_graph(g_Copy);
+        calculateBetween(g_Copy, shortestPathFromTo, g_Copy);
 
+    }
 }
 void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths){
     int check = num_edges(graph) - 1;
     while(num_edges(graph) > 0)
-        graph = calculateBetween(graph, paths);
+        graph = calculateBetween(graph, paths, graph);
 
 }
 
