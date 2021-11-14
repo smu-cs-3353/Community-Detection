@@ -30,39 +30,30 @@ using footballGraph =  boost::adjacency_list<boost::vecS,
 //shortcut for vertex_descriptor types
 using Vertex = boost::graph_traits<footballGraph>::vertex_descriptor;
 using Edge = boost::graph_traits<footballGraph>::edge_descriptor;
-footballGraph readMap(std::string path);
+footballGraph readMap(std::string path, std::string);
 std::vector<std::vector<Vertex>> processParentMaps(footballGraph);
 void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo);
-void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths);
-//struct from boost examples used to print out the parent
-//implemented here: https://www.boost.org/doc/libs/1_77_0/libs/graph/example/bfs.cpp
-template < class ParentDecorator > struct print_parent
-{
-    print_parent(const ParentDecorator& p_) : p(p_) {}
-    template < class Vertex > void operator()(const Vertex& v) const
-    {
-        std::cout << "parent[" << v << "] = " << p[v] << std::endl;
-    }
-    ParentDecorator p;
-};
+void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths, std::string);
+
 
 //Pass in path to graphml file in the program arguments
 int main(int argc, char* argv[])
 {   //creates a graph object of the graphml file provided
-    footballGraph graph = readMap(argv[1]);
+    footballGraph graph = readMap(argv[1], argv[2]);
     //initializes a vector to store parent maps
     std::vector<std::vector<Vertex>> shortestPathFromTo;
     //runs DFS from each node to generate parent maps
     shortestPathFromTo = processParentMaps(graph);
     boost::print_graph(graph);
-    newManAlgo(graph, shortestPathFromTo);
+    newManAlgo(graph, shortestPathFromTo, argv[2]);
 
 }
 /**
  *   Function takes in a path to a graphml and returns a graph object
  */
-footballGraph readMap(std::string path){
+footballGraph readMap(std::string path, std::string path2){
     std::ifstream inFile;
+    path += ".graphml";
     inFile.open(path.c_str(), std::ifstream::in);
     footballGraph g;
     boost::dynamic_properties dp(boost::ignore_other_properties);
@@ -71,10 +62,9 @@ footballGraph readMap(std::string path){
     dp.property("label", boost::get(&footballData::label, g));
     boost::read_graphml(inFile, g, dp);
     std::fstream outFile;
-    std::string path2 = "../football/football_starting_example.dot";
+    path2 += "_begin.dot";
     outFile.open(path2.c_str(), std::fstream::out);
     if(outFile.is_open()) {
-        //std::cout << "file opened " << std::endl;
         boost::write_graphviz_dp(outFile, g, dp, "label");
     }
 
@@ -114,19 +104,10 @@ std::vector<std::vector<Vertex>> processParentMaps(footballGraph g){
     //boost::print_graph(g);
     return parentLists;
 }
-//takes in a graph and it's vector of predecessor maps and prints them out
-typedef std::vector<Vertex>::value_type *Piter;
-//implemented here: https://www.boost.org/doc/libs/1_77_0/libs/graph/example/bfs.cpp
-void printParentMaps(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo){
-    for(int i = 0; i < shortestPathFromTo.size(); i++){
-        std::cout << "=========================================" <<  std::endl << "Printing Predecessor Map For Node "<< i <<  std::endl;
-        std::for_each(boost::vertices(graph).first, boost::vertices(graph).second,
-                      print_parent<Piter>(&shortestPathFromTo[1][0]));
-    }
-}
+
 using EdgeIterator = boost::graph_traits<footballGraph>::edge_iterator;
 
-footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo, footballGraph bestGraph, int total, int counter) {
+footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vertex>>& shortestPathFromTo, footballGraph bestGraph, int total, int counter, std::string path) {
     if (num_edges(graph) == 0) {
         bestGraph = graph;
         return bestGraph;
@@ -140,7 +121,6 @@ footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vert
         for (EdgeIterator edge_iter = ei.first; edge_iter != ei.second; ++edge_iter) {
             int betweenVal = 0;
             Edge toCheck = *edge_iter;
-            Vertex go = vertex(0, graph);
             //for each shortest path
             for (int i = 0; i < shortestPathFromTo.size(); i++) {
                 if (out_degree(vertex(i, graph), graph) == 0)
@@ -190,41 +170,33 @@ footballGraph calculateBetween(footballGraph graph, std::vector<std::vector<Vert
         }
 
         for(int i = 0; i < maxList.size(); i++){
-            if(i==1){
-                std::cout << "it happened for " <<  maxList.size() << " edges " << std::endl;
-
-            }
             remove_edge(maxList[i], graph);
-            std::cout << "max betweenness edge is " << std::endl;
-            std::cout << maxList[i] << std::endl;
         }
         footballGraph g_Copy = graph;
         if(num_edges(g_Copy) < (.8)*total && num_edges(g_Copy) != 0){
-            std::cout << "reached if" << std::endl;
             counter++;
             std::string inx = std::to_string(counter);
             std::fstream outFile;
-            std::string path = "../football/football_starting_example";
-            path = path + inx + ".dot";
-            outFile.open(path.c_str(), std::fstream::out);
+            std::string path2 = path + inx + ".dot";
+            outFile.open(path2.c_str(), std::fstream::out);
             if(outFile.is_open()) {
                 boost::dynamic_properties dp(boost::ignore_other_properties);
                 dp.property("label", boost::get(&footballData::label, graph));
                 boost::write_graphviz_dp(outFile, graph, dp, "label");
             }else{
-                std::cout << "file not open" << std::endl;
             }
             total = (0.5)*total;
 
         }
-        return calculateBetween(g_Copy, shortestPathFromTo, g_Copy, total, counter);
+
+        return calculateBetween(g_Copy, shortestPathFromTo, g_Copy, total, counter, path);
 
     }
 }
-void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths){
+void newManAlgo(footballGraph graph, std::vector<std::vector<Vertex>>& paths, std::string path){
     int total = num_edges(graph);
     int counter = 0;
-    graph = calculateBetween(graph, paths, graph, total, counter);
+    graph = calculateBetween(graph, paths, graph, total, counter, path);
 }
 
 
